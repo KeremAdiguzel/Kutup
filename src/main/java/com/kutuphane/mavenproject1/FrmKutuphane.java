@@ -6,6 +6,7 @@ package com.kutuphane.mavenproject1;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,6 +22,7 @@ public class FrmKutuphane extends javax.swing.JFrame {
      */
     public FrmKutuphane() {
         initComponents();
+        tabloDoldurucu();
     }
 
     /**
@@ -66,6 +68,11 @@ public class FrmKutuphane extends javax.swing.JFrame {
         });
 
         btnOdunc.setText("Ödünç");
+        btnOdunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOduncActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("jButton3");
 
@@ -116,9 +123,21 @@ public class FrmKutuphane extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnKitapEkleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKitapEkleActionPerformed
-        KitapEkle kEkle = new KitapEkle(this, rootPaneCheckingEnabled);
-        
+        KitapEkle kEkle = new KitapEkle(this, true);
+        kEkle.show();
+        tabloDoldurucu();
     }//GEN-LAST:event_btnKitapEkleActionPerformed
+
+    private void btnOduncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOduncActionPerformed
+int selectedRow =tblTablo.getSelectedRow();
+if(selectedRow!=-1){
+        DlgOdunc odunc = new DlgOdunc(this, true,selectedRow);
+        odunc.show();
+        tabloDoldurucu();
+}
+else JOptionPane.showMessageDialog(rootPane, "Satır seçiniz");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOduncActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,7 +179,7 @@ public class FrmKutuphane extends javax.swing.JFrame {
         String[] baslik = new String[]{"Kitap", "Yazar", "Yer", "Kimde"};
         String[][] doldur = new String[kitapListe.size()][4];
 
-        for (int i = 0; i <= kitapListe.size(); i++) {
+        for (int i = 0; i < kitapListe.size(); i++) {
             doldur[i][0] = kitapListe.get(i).getAd();
             doldur[i][1] = kitapListe.get(i).getYazar();
             doldur[i][2] = kitapListe.get(i).getYer();
