@@ -4,6 +4,7 @@
  */
 package com.kutuphane.mavenproject1;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -38,12 +39,12 @@ public class FrmKutuphane extends javax.swing.JFrame {
         tblTablo = new javax.swing.JTable();
         btnKitapEkle = new javax.swing.JButton();
         btnOdunc = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnIade = new javax.swing.JButton();
+        btnCıkar = new javax.swing.JButton();
+        btnDegistir = new javax.swing.JButton();
+        btnExcel = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,17 +75,36 @@ public class FrmKutuphane extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("jButton3");
+        btnIade.setText("Geri Geldi");
+        btnIade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIadeActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("jButton4");
+        btnCıkar.setText("Kitap Çıkar ");
+        btnCıkar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCıkarActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("jButton5");
+        btnDegistir.setText("Kitap Değiştir");
+        btnDegistir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDegistirActionPerformed(evt);
+            }
+        });
 
-        jMenu1.setText("File");
+        btnExcel.setText("Excele Aktar");
+        btnExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcelActionPerformed(evt);
+            }
+        });
+
+        jMenu1.setText("Kütüpist");
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -98,9 +118,10 @@ public class FrmKutuphane extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnOdunc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnKitapEkle, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnIade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDegistir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCıkar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -111,12 +132,14 @@ public class FrmKutuphane extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnOdunc)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btnIade)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(btnCıkar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
-                .addGap(0, 140, Short.MAX_VALUE))
+                .addComponent(btnDegistir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExcel)
+                .addGap(0, 111, Short.MAX_VALUE))
         );
 
         pack();
@@ -129,15 +152,69 @@ public class FrmKutuphane extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKitapEkleActionPerformed
 
     private void btnOduncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOduncActionPerformed
-int selectedRow =tblTablo.getSelectedRow();
-if(selectedRow!=-1){
-        DlgOdunc odunc = new DlgOdunc(this, true,selectedRow);
-        odunc.show();
-        tabloDoldurucu();
-}
-else JOptionPane.showMessageDialog(rootPane, "Satır seçiniz");
+        int selectedRow = tblTablo.getSelectedRow();
+        if (selectedRow != -1) {
+            DlgOdunc odunc = new DlgOdunc(this, true, selectedRow);
+            odunc.show();
+            tabloDoldurucu();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Satır seçiniz");
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_btnOduncActionPerformed
+
+    private void btnIadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIadeActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblTablo.getSelectedRow();
+        if (selectedRow != -1) {
+            Kitaplar kOd= new Kitaplar();
+            
+ FrmKutuphane.kitapListe.get(selectedRow).setKimde(null);
+
+            tabloDoldurucu();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Satır seçiniz");
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIadeActionPerformed
+
+    private void btnCıkarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCıkarActionPerformed
+  int selectedRow = tblTablo.getSelectedRow();
+        if (selectedRow != -1) {
+ kitapListe.remove(selectedRow);                            
+
+            tabloDoldurucu();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Satır seçiniz");
+        }
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCıkarActionPerformed
+
+    private void btnDegistirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDegistirActionPerformed
+   int selectedRow = tblTablo.getSelectedRow();
+        if (selectedRow != -1) {
+            DlgDegistir degistir= new DlgDegistir(this, true, selectedRow);
+           degistir.show();
+            tabloDoldurucu();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Satır seçiniz");
+        }       // TODO add your handling code here:
+    }//GEN-LAST:event_btnDegistirActionPerformed
+
+    private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
+ try
+ {
+ ExlUtil excelbas = new ExlUtil(); // Class'în bir nesnesini oluşturduk
+ excelbas.fillData(tblTablo, new File("C:\\Intel\\tablo.xls")); // hangi tabloyu basacağımızı ve yolu belirledik.
+ JOptionPane.showMessageDialog(null, "Dosya " + "'D: \\ tablo.xls' adresine başarıyla kaydedildi",//Başarılı Mesajı
+ "Tablo Oluşturuldu", JOptionPane.INFORMATION_MESSAGE);
+ }
+ catch (Exception ex)
+ {
+ ex.printStackTrace();
+ }       // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,13 +268,13 @@ else JOptionPane.showMessageDialog(rootPane, "Satır seçiniz");
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCıkar;
+    private javax.swing.JButton btnDegistir;
+    private javax.swing.JButton btnExcel;
+    private javax.swing.JButton btnIade;
     private javax.swing.JButton btnKitapEkle;
     private javax.swing.JButton btnOdunc;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblTablo;

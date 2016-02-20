@@ -5,74 +5,52 @@
 package com.kutuphane.mavenproject1;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
+ 
+import javax.swing.*;
+ 
+import javax.swing.table.*;
+ 
+import jxl.*;
+import jxl.write.*;
+ 
+public class ExlUtil
+{
+ 
+void fillData(JTable table, File file)
+ {
+ 
+try
+ {
+ 
+WritableWorkbook calismakitabi1 = Workbook.createWorkbook(file);
+ WritableSheet yaprak1 = calismakitabi1.createSheet("İlk Yaprak", 0);
+ TableModel model = table.getModel();
+ 
+for (int i = 0; i < model.getColumnCount(); i++)
+ {
+ Label column = new Label(i, 0, model.getColumnName(i));
+ yaprak1.addCell(column);
+ }
+ int j = 0;
+ for (int i = 0; i < model.getRowCount(); i++)
+ {
+ for (j = 0; j < model.getColumnCount(); j++)
+ {
+ Label row = new Label(j, i + 1, model.getValueAt(i, j).toString());
+ yaprak1.addCell(row);
+ }
+ }
+ calismakitabi1.write();
+ calismakitabi1.close();
+ }
+ catch (Exception ex)
+ {
+ ex.printStackTrace();
+ }
+ }
+ 
 
-/**
- *
- * @author vektorel
- */
-public class ExlUtil {
-    FrmKutuphane kutup= new FrmKutuphane();
-    
-    public void AktarExcel(){
-        HSSFWorkbook aktar= new HSSFWorkbook();
-        HSSFSheet sayfa= aktar.createSheet("Sayfa");
-         Map<String, Object[]> data = new HashMap<String, Object[]>();
-         
-         for (int i = kutup.kitapListe.size(); i >0; i--) {
-             Kitaplar kisi = kutup.kitapListe.get(i-1);
-            data.put(""+i, new Object[]{Kitaplar.,kisi.getSoyad(),kisi.getAdres()});
-        }
-      
-        data.put("" + (liste.size()+1), new Object[]{"Adı", "Soyadı", "Adres"});
-           
-        Set<String> keyset = data.keySet();
-        int rownum = 1;
-        for (String key : keyset) {
-            Row row = sheet.createRow(rownum++);
-            Object[] objArr = data.get(key);
-            int cellnum = 0;
-            for (Object obj : objArr) {
-                Cell cell = row.createCell(cellnum++);
-                if (obj instanceof Date) {
-                    cell.setCellValue((Date) obj);
-                } else if (obj instanceof Boolean) {
-                    cell.setCellValue((Boolean) obj);
-                } else if (obj instanceof String) {
-                    cell.setCellValue((String) obj);
-                } else if (obj instanceof Double) {
-                    cell.setCellValue((Double) obj);
-                }
-            }
-        }
-        try {
-            FileOutputStream out = new FileOutputStream(new File("C:\\TT\\A.xls"));
-            workbook.write(out);
-            out.close();
-            System.out.println("Excel yazıldı..");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } 
-        
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
 }
