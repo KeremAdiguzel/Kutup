@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Kutuphanematik</title>
+</h:head>
+<h:body>
+
+	<div style="text-align: center;">
+		<h1>Kullanıcı Girişi Yapınız</h1>
+		<h:form>
+			<p:panelGrid columns="2">
+
+				<h:outputLabel for="kullaniciAdi" value="Kullanıcı Adı :" />
+				<p:inputText value="#{loginBean.username}"></p:inputText>
+								
+				<h:outputLabel for="sifre" value="Şifre :" />
+				<p:password value="#{loginBean.pwd}"></p:password>				
+				
+				<p:commandButton id="giris" value="Giriş" action="#{loginBean.girisYap}" ajax="false"/>
+			</p:panelGrid>
+		</h:form>
+	</div>
+</h:body>
+</html>

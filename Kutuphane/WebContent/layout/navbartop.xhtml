@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+
+	<ui:remove>
+
+	</ui:remove>
+	<b:navBar brand="Kutuphanematik" brandHref="http://localhost:8080/Kutuphane/"
+		inverse="true" position="top" sticky="true">
+		<b:container>
+			<b:navbarLinks>
+				<b:navLink />
+				<b:navLink />
+				<b:navbarLinks>
+					<b:navLink outcome="/index" value="Ana Sayfa" iconAwesome="home" />
+				</b:navbarLinks>
+				<b:dropMenu value="Genel Tanımlar">
+					<b:navLink value="Demirbaş İşlemleri" href="/Kutuphane/secure/kutuphane/kutuphane.xhtml" icon="tasks" />
+		
+				</b:dropMenu>
+
+			</b:navbarLinks>
+		
+			<b:navbarLinks pull="right">
+				<b:navLink value="Hoşgeldin #{loginBean.username}" />
+				<h:form>
+				<b:commandButton action="#{loginBean.cikisYap}" >Çıkış</b:commandButton>
+				</h:form>
+			</b:navbarLinks>
+		</b:container>
+	</b:navBar>
+
+</ui:fragment>
